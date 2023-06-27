@@ -4,7 +4,7 @@ Api para describir una persona
 
 ## Secuencia para despliegue en producción
 1. Configurar el repositorio con el archivo requirements.txt
-2. Crear una cuenta en onrender
+2. Crear una cuenta en onrender.
 3. Vincular repositorio de github con onrender.
 4. Crear servicio web dentro de onrender.
 5. Configurar app dentro onrender.
