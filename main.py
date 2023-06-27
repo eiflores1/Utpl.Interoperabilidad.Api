@@ -8,9 +8,9 @@ import uuid
 #Importar libreria de mongodb
 import pymongo
 
-client = pymongo.MongoClient("mongodb+srv://utplinteroperabilidad:0b1Fd3PFZZInSuZK@cluster0.susnphb.mongodb.net/?retryWrites=true&w=majority")
-database = client["directorio"]
-coleccion = database["persona"]
+client = pymongo.MongoClient("mongodb+srv://<username>:<password>@atlascluster.ndzxcix.mongodb.net/?retryWrites=true&w=majority")
+database = client["biblioteca"]
+coleccion = database["libros"]
 
 sp = spotipy.Spotify(auth_manager=spotipy.oauth2.SpotifyClientCredentials(
     client_id='3b6802d61157480c83ab90de72037e4a',
