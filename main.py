@@ -8,7 +8,7 @@ import uuid
 #Importar libreria de mongodb
 import pymongo
 
-client = pymongo.MongoClient("mongodb+srv://<username>:<password>@atlascluster.ndzxcix.mongodb.net/?retryWrites=true&w=majority")
+client = pymongo.MongoClient("mongodb+srv://utplapi2:C3uhv7iH7iBPQS2O@atlascluster.ndzxcix.mongodb.net/?retryWrites=true&w=majority")
 database = client["biblioteca"]
 coleccion = database["libros"]
 
