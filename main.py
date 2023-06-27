@@ -50,9 +50,9 @@ app = FastAPI(
     version="0.0.1",
     terms_of_service="http://example.com/terms/",
     contact={
-        "name": "Felipe Quiñonez",
+        "name": "Eduardo Flores",
         "url": "http://x-force.example.com/contact/",
-        "email": "fdquinones@utpl.edu.ec",
+        "email": "eduflores98@outlook.es",
     },
     license_info={
         "name": "Apache 2.0",
