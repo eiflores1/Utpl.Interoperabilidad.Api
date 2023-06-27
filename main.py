@@ -13,8 +13,8 @@ database = client["directorio"]
 coleccion = database["persona"]
 
 sp = spotipy.Spotify(auth_manager=spotipy.oauth2.SpotifyClientCredentials(
-    client_id='c8519595485648c3949369793de3e366',
-    client_secret='d266e54ea24346a7b278445be87cd400'
+    client_id='3b6802d61157480c83ab90de72037e4a',
+    client_secret='58e2866016ca4e9897e96e7edc2c6a09'
 ))
 
 description = """
