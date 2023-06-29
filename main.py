@@ -22,10 +22,10 @@ sp = spotipy.Spotify(auth_manager=spotipy.oauth2.SpotifyClientCredentials(
 description = """
 Utpl tnteroperabilidad API ayuda a describir las capacidades de un directorio. 🚀
 
-## Personas
+## Estudiantes
 
-Tu puedes crear una persona.
-Tu puedes listar personas.
+Tu puedes crear un estudiante.
+Tu puedes listar estudiantes.
 
 
 ## Artistas
@@ -37,8 +37,8 @@ You will be able to:
 
 tags_metadata = [
     {
-        "name":"personas",
-        "description": "Permite realizar un crud completo de una persona (listar)"
+        "name":"estudiantes",
+        "description": "Permite realizar un crud completo de un estudiante (listar)"
     },
     {
         "name":"canciones",
@@ -63,66 +63,66 @@ app = FastAPI(
     openapi_tags = tags_metadata
 )
 
-class PersonaRepositorio (BaseModel):
+class Escuela (BaseModel):
     id: str
     nombre: str
-    edad: int
+    tiempo: int
     identificacion: Optional[str] = None
     ciudad: Optional[str] = None
 
-class PersonaEntrada (BaseModel):
+class Colegio (BaseModel):
     nombre: str
-    edad: int
+    tiempo: int
     ciudad: Optional[str] = None
 
-class PersonaEntradav2 (BaseModel):
+class Colegiov2 (BaseModel):
     nombre: str
-    edad: int
+    tiempo: int
     identificacion: str
     ciudad: Optional[str] = None
 
 
-personaList = []
+estudianteList = []
 
-@app.post("/personas", response_model=PersonaRepositorio, tags = ["personas"])
+@app.post("/estudiantes", response_model=Escuela, tags = ["estudiantes"])
 @version(1, 0)
-async def crear_persona(person: PersonaEntrada):
-    itemPersona = PersonaRepositorio(id=str(uuid.uuid4()), nombre= person.nombre, ciudad = person.ciudad, edad = person.edad)
-    result = coleccion.insert_one(itemPersona.dict())
-    return itemPersona
+async def crear_estudiante(estudiant: Colegio):
+    itemEstudiante = Escuela(id=str(uuid.uuid4()), nombre= estudiant.nombre, ciudad = estudiant.ciudad, tiempo = estudiant.tiempo)
+    result = coleccion.insert_one(itemEstudiante.dict())
+    return itemEstudiante
 
-@app.post("/personas", response_model=PersonaRepositorio, tags = ["personas"])
+@app.post("/estudiantes", response_model=Escuela, tags = ["estudiantes"])
 @version(2, 0)
-async def crear_personav2(person: PersonaEntradav2):
-    itemPersona = PersonaRepositorio(id=str(uuid.uuid4()), nombre= person.nombre, ciudad = person.ciudad, edad = person.edad, identificacion = person.identificacion)
-    result = coleccion.insert_one(itemPersona.dict())
-    return itemPersona
+async def crear_estudiantev2(estudiant: Colegiov2):
+    itemEstudiante = Escuela(id=str(uuid.uuid4()), nombre= estudiant.nombre, ciudad = estudiant.ciudad, tiempo = estudiant.tiempo, identificacion = estudiant.identificacion)
+    result = coleccion.insert_one(itemEstudiante.dict())
+    return itemEstudiante
 
-@app.get("/personas", response_model=List[PersonaRepositorio], tags=["personas"])
+@app.get("/estudiantes", response_model=List[Escuela], tags=["estudiantes"])
 @version(1, 0)
-def get_personas():
+def get_estudiantes():
     items = list(coleccion.find())
     print (items)
     return items
 
-@app.get("/personas/{persona_id}", response_model=PersonaRepositorio , tags=["personas"])
+@app.get("/estudiantes/{estudiante_id}", response_model=Escuela , tags=["estudiantes"])
 @version(1, 0)
-def obtener_persona (persona_id: str):
-    item = coleccion.find_one({"id": persona_id})
+def obtener_estudiante (estudiante_id: str):
+    item = coleccion.find_one({"id": estudiante_id})
     if item:
         return item
     else:
-        raise HTTPException(status_code=404, detail="Persona no encontrada")
+        raise HTTPException(status_code=404, detail="Estudiante no encontrado")
     
 
-@app.delete("/personas/{persona_id}", tags=["personas"])
+@app.delete("/estudiantes/{estudiante_id}", tags=["estudiantes"])
 @version(1, 0)
-def eliminar_persona (persona_id: str):    
-    result = coleccion.delete_one({"id": persona_id})
+def eliminar_estudiante (estudiante_id: str):    
+    result = coleccion.delete_one({"id": estudiante_id})
     if result.deleted_count == 1:
-        return {"mensaje": "Persona eliminada exitosamente"}
+        return {"mensaje": "Estudiante eliminada exitosamente"}
     else:
-        raise HTTPException(status_code=404, detail="Persona no encontrada")
+        raise HTTPException(status_code=404, detail="Estudiante no encontrado")
 
 @app.get("/pista/{pista_id}", tags = ["canciones"])
 @version(1, 0)
