@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from typing import List, Optional
 
@@ -6,6 +6,10 @@ import spotipy
 import uuid
 
 from fastapi_versioning import VersionedFastAPI, version
+
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
+
+from auth import authenticate
 
 #Importar libreria de mongodb
 import pymongo
@@ -63,6 +67,9 @@ app = FastAPI(
     openapi_tags = tags_metadata
 )
 
+#para agregar seguridad a nuestro api
+security = HTTPBasic()
+
 class Escuela (BaseModel):
     id: str
     nombre: str
@@ -100,7 +107,8 @@ async def crear_estudiantev2(estudiant: Colegiov2):
 
 @app.get("/estudiantes", response_model=List[Escuela], tags=["estudiantes"])
 @version(1, 0)
-def get_estudiantes():
+def get_personas(credentials: HTTPBasicCredentials = Depends(security)):
+    authenticate(credentials)
     items = list(coleccion.find())
     print (items)
     return items
